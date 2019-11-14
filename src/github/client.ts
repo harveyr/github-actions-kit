@@ -14,16 +14,19 @@ export interface ParsedRepo {
   owner: string
 }
 
-export function parseRepo() {
-  if (!GITHUB_REPOSITORY) {
-    throw new Error('GITHUB_REPOSITORY is empty')
+export function parseRepo(s?: string): ParsedRepo {
+  if (!s) {
+    if (!GITHUB_REPOSITORY) {
+      throw new Error('GITHUB_REPOSITORY is empty')
+    }
+    s = GITHUB_REPOSITORY
   }
-  const [owner, repo] = GITHUB_REPOSITORY.split('/')
+  const [owner, repo] = s.split('/')
   core.debug(`Found Github owner ${owner}, repo ${repo}`)
   return { owner, repo }
 }
 
-export function getSha() {
+export function getSha(): string {
   if (!GITHUB_SHA) {
     throw new Error('GITHUB_SHA is empty')
   }

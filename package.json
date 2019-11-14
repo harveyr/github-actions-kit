@@ -2,11 +2,12 @@
   "name": "github-actions-kit",
   "version": "1.0.0",
   "description": "Github Actions toolkit",
-  "main": "index.js",
+  "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "prepublish": "tsc",
   "scripts": {
-    "build": "tsc",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "rm -rf dist && tsc",
+    "test": "jest"
   },
   "author": "",
   "license": "MIT",
@@ -27,7 +28,7 @@
     "jest": "^24.8.0",
     "jest-circus": "^24.7.1",
     "prettier": "^1.19.1",
-    "ts-jest": "^24.0.2",
+    "ts-jest": "^24.1.0",
     "typescript": "^3.7.2"
   },
   "prettier": {
