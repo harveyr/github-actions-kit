@@ -1,17 +1,25 @@
 import * as core from '@actions/core'
 
-import { CheckRunAbridged } from './types'
+import { CheckRunAbridged, ChecksCreateParamsOutputAnnotations } from './types'
+import * as checks from './checks'
 
 // TODO: Use a TS import once this is fixed: https://github.com/actions/toolkit/issues/199
 // import * as github from '@actions/github'
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const github = require('@actions/github')
 
-export const { GITHUB_REPOSITORY, GITHUB_SHA, GITHUB_WORKSPACE } = process.env
+const { GITHUB_REPOSITORY, GITHUB_SHA, GITHUB_WORKSPACE } = process.env
 
 export interface ParsedRepo {
   repo: string
   owner: string
+}
+
+export function getWorkspace(): string {
+  if (!GITHUB_WORKSPACE) {
+    throw new Error('GITHUB_WORKSPACE is empty')
+  }
+  return GITHUB_WORKSPACE
 }
 
 export function parseRepo(s?: string): ParsedRepo {
@@ -53,7 +61,9 @@ export async function postCheckRun(data: CheckRunAbridged): Promise<unknown> {
       title: name,
       summary: summary ? summary : 'Output',
       text,
-      annotations,
+      annotations: annotations
+        ? annotations.map(checks.convertAnnotation)
+        : undefined,
     },
   })
 }
