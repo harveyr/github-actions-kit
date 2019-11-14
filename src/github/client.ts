@@ -33,7 +33,7 @@ export function getSha(): string {
   return GITHUB_SHA
 }
 
-export async function postCheckRun(data: CheckRunAbridged): Promise<any> {
+export async function postCheckRun(data: CheckRunAbridged): Promise<unknown> {
   const { owner, repo } = parseRepo()
   const { githubToken, name, conclusion, summary, text, annotations } = data
   const client = new github.GitHub(githubToken)
