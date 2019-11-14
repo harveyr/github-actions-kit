@@ -47,7 +47,7 @@ export type ChecksCreateSuiteParams = {
 }
 
 export interface ChecksCreateParamsOutputAnnotations {
-  annotation_level: 'notice' | 'warning' | 'failure'
+  annotation_level: AnnotationLevel
   end_column?: number
   end_line: number
   message: string
@@ -64,6 +64,23 @@ export type ChecksCreateParamsOutputImages = {
   image_url: string
 }
 
+export type AnnotationLevel = 'notice' | 'warning' | 'failure'
+
+/**
+ * ESLint-compatible interface for check run annotations. This prevents you from
+ * having to disable the camelcase rule in your repo.
+ */
+export interface CheckRunAnnotation {
+  level: AnnotationLevel
+  startLine: number
+  endLine?: number
+  startColumn?: number
+  endColumn?: number
+  message: string
+  path: string
+  title?: string
+}
+
 /**
  * These are custom types:
  */
@@ -74,5 +91,5 @@ export interface CheckRunAbridged {
   conclusion: CheckRunConclusion
   summary?: string
   text?: string
-  annotations?: ChecksCreateParamsOutputAnnotations[]
+  annotations?: CheckRunAnnotation[]
 }
