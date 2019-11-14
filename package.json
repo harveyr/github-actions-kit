@@ -1,12 +1,15 @@
 {
   "name": "@harveyr/github-actions-kit",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Github Actions toolkit",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib"
+  ],
   "prepublish": "tsc",
   "scripts": {
-    "build": "rm -rf dist && tsc",
+    "build": "rm -rf lib && tsc",
     "test": "jest"
   },
   "author": "",
