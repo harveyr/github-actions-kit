@@ -9,12 +9,13 @@ export type ChecksCreateParamsActions = {
   label: string
 }
 
-export type CheckRunConclusion = | 'success'
-| 'failure'
-| 'neutral'
-| 'cancelled'
-| 'timed_out'
-| 'action_required'
+export type CheckRunConclusion =
+  | 'success'
+  | 'failure'
+  | 'neutral'
+  | 'cancelled'
+  | 'timed_out'
+  | 'action_required'
 
 export type ChecksCreateParams = {
   actions?: ChecksCreateParamsActions[]
@@ -45,7 +46,7 @@ export type ChecksCreateSuiteParams = {
   repo: string
 }
 
-interface ChecksCreateParamsOutputAnnotations {
+export interface ChecksCreateParamsOutputAnnotations {
   annotation_level: 'notice' | 'warning' | 'failure'
   end_column?: number
   end_line: number

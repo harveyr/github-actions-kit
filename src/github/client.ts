@@ -36,7 +36,12 @@ export function getSha(): string {
 export async function postCheckRun(data: CheckRunAbridged): Promise<unknown> {
   const { owner, repo } = parseRepo()
   const { githubToken, name, conclusion, summary, text, annotations } = data
+
+  if (!githubToken) {
+    throw new Error('No Github token provided')
+  }
   const client = new github.GitHub(githubToken)
+
   return client.checks.create({
     name,
     conclusion,
