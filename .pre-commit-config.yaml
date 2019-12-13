@@ -12,12 +12,11 @@ repos:
       - id: eslint
         args: [--fix]
         additional_dependencies:
-          - eslint@5.16.0
-          - typescript@3.7.2
+          - eslint@6.7.2
+          - typescript@3.7.3
           - '@typescript-eslint/eslint-plugin@2.6.1'
           - '@typescript-eslint/parser@2.6.1'
-          - eslint-config-prettier@6.5.0
-          - eslint-plugin-import@2.16.0
+          - eslint-config-prettier@6.7.0
         # remove default javascript-only filter so we can lint typescript
         # https://github.com/pre-commit/mirrors-eslint/blob/master/.pre-commit-hooks.yaml
         types: []
