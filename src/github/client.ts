@@ -1,12 +1,8 @@
+import * as github from '@actions/github'
 import * as checks from './checks'
 import { getOwnerAndRepo, getSha } from './constants'
 import { CheckRunAbridged } from './types'
 
-// TODO: Use the TS import once this is fixed: https://github.com/actions/toolkit/issues/199
-// import * as github from '@actions/github'
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const github = require('@actions/github')
 
 export async function postCheckRun(data: CheckRunAbridged): Promise<unknown> {
   const { owner, repo } = getOwnerAndRepo()
