@@ -3,7 +3,6 @@ import * as checks from './checks'
 import { getOwnerAndRepo, getSha } from './constants'
 import { CheckRunAbridged } from './types'
 
-
 export async function postCheckRun(data: CheckRunAbridged): Promise<unknown> {
   const { owner, repo } = getOwnerAndRepo()
   const { githubToken, name, conclusion, summary, text, annotations } = data
