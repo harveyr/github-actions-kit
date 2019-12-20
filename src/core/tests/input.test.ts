@@ -26,12 +26,20 @@ test('getInputSafe: fails when value required but not found', () => {
 
 test('getInputSafe: fails alt key found', () => {
   const getInput = jest.fn() as jest.MockedFunction<GetInputFn>
-  getInput.mockReturnValueOnce('').mockReturnValueOnce('not nothing')
 
+  getInput.mockReturnValueOnce('').mockReturnValueOnce('not nothing')
   expect(() => {
     getInputSafe('disco_heaven', { getInput, required: false })
     getInputSafe('disco-heaven', { getInput, required: false })
   }).toThrow(
     'No data for input "disco_heaven" but got data for input "disco-heaven". Failing out of caution.',
+  )
+
+  getInput.mockReturnValueOnce('').mockReturnValueOnce('not nothing')
+  expect(() => {
+    getInputSafe('disco-heaven', { getInput, required: false })
+    getInputSafe('disco_heaven', { getInput, required: false })
+  }).toThrow(
+    'No data for input "disco-heaven" but got data for input "disco_heaven". Failing out of caution.',
   )
 })

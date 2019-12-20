@@ -11,9 +11,13 @@ interface GetInputOpt extends core.InputOptions {
  *
  * In particular, for a key like "some_input", it checks whether data was
  * accidentally supplied for "some-input" instead.
+ *
+ * I personally would _never_ break CI for my entire team by making this
+ * mistake. But maybe someone else would. ;)
  */
 export function getInputSafe(key: string, opt: GetInputOpt = {}): string {
   function getInput(key: string): string {
+    // Allow for dependency injection to make testing easy:
     const getFunc: GetInputFn = opt.getInput ? opt.getInput : core.getInput
     const getOpt: core.InputOptions = { required: opt.required }
     return getFunc.apply(null, [key, getOpt])
