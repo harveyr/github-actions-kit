@@ -4,6 +4,7 @@ export type GetInputFn = (key: string, opt?: core.InputOptions) => string
 
 interface GetInputOpt extends core.InputOptions {
   getInput?: GetInputFn
+  allowAltFormat?: boolean
 }
 
 /**
@@ -38,7 +39,16 @@ export function getInputSafe(key: string, opt: GetInputOpt = {}): string {
   } else if (key.includes('_')) {
     altKey = key.replace('_', '-')
   }
-  if (altKey && getInput(altKey)) {
+  if (!altKey) {
+    return ''
+  }
+
+  const altResult = getInput(altKey)
+  if (altResult) {
+    if (opt.allowAltFormat) {
+      // Maybe we want to allow either format to work.
+      return altResult
+    }
     throw new Error(
       `No data for input "${key}" but got data for input "${altKey}". Failing out of caution.`,
     )
