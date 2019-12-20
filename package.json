@@ -7,7 +7,7 @@
   "files": [
     "lib"
   ],
-  "prepublish": "tsc",
+  "prepublish": "npm run build",
   "scripts": {
     "build": "rm -rf lib && tsc",
     "test": "jest"
