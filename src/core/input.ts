@@ -29,26 +29,29 @@ export function getInputSafe(key: string, opt: GetInputOpt = {}): string {
     return result
   }
 
-  if (opt.required) {
-    throw new Error(`"${key}" is a required input`)
-  }
-
   let altKey = ''
   if (key.includes('-')) {
     altKey = key.replace('-', '_')
   } else if (key.includes('_')) {
     altKey = key.replace('_', '-')
   }
-  if (!altKey) {
-    return ''
+  let altResult = ''
+  if (altKey) {
+    altResult = getInput(altKey)
   }
 
-  const altResult = getInput(altKey)
-  if (altResult) {
-    if (opt.allowAltFormat) {
-      // Maybe we want to allow either format to work.
-      return altResult
-    }
+  if (opt.allowAltFormat && altResult) {
+    // Maybe we want to allow either format to work.
+    return altResult
+  }
+
+  if (opt.required) {
+    throw new Error(`"${key}" is a required input`)
+  }
+
+  if (!opt.allowAltFormat && altResult) {
+    // Fail if we see data on an alternative key and the allowAltFormat option
+    // is not provided.
     throw new Error(
       `No data for input "${key}" but got data for input "${altKey}". Failing out of caution.`,
     )
