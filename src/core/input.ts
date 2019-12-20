@@ -46,6 +46,8 @@ export function getInputSafe(key: string, opt: GetInputOpt = {}): string {
   }
 
   if (opt.required) {
+    // We didn't find input on any of the anticipated keys, so if the input is
+    // required, we can fail here.
     throw new Error(`"${key}" is a required input`)
   }
 
