@@ -21,7 +21,7 @@ export function getInputSafe(key: string, opt: GetInputOpt = {}): string {
     // Allow for dependency injection to make testing easy:
     const getFunc: GetInputFn = opt.getInput ? opt.getInput : core.getInput
     const getOpt: core.InputOptions = { required: opt.required }
-    return getFunc.apply(null, [key, getOpt])
+    return getFunc.apply(null, [key, getOpt]).trim()
   }
 
   const result = getInput(key)
@@ -55,7 +55,7 @@ export function getInputSafe(key: string, opt: GetInputOpt = {}): string {
     // Fail if we see data on an alternative key and the allowAltFormat option
     // is not provided.
     throw new Error(
-      `No data for input "${key}" but got data for input "${altKey}". Failing out of caution.`,
+      `No data for input "${key}" but got data for input "${altKey}": "${altResult}". Failing out of caution.`,
     )
   }
 
