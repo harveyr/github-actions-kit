@@ -1,6 +1,7 @@
 import * as core from '@actions/core'
+import * as github from '@actions/github'
 
-const { GITHUB_REPOSITORY, GITHUB_SHA, GITHUB_WORKSPACE } = process.env
+const { GITHUB_REPOSITORY, GITHUB_WORKSPACE } = process.env
 
 export function getWorkspace(): string {
   if (!GITHUB_WORKSPACE) {
@@ -27,8 +28,25 @@ export function getOwnerAndRepo(s?: string): ParsedRepo {
 }
 
 export function getSha(): string {
-  if (!GITHUB_SHA) {
-    throw new Error('GITHUB_SHA is empty')
+  const context = github.context
+  const { eventName, payload } = context
+
+  if (eventName === 'push') {
+    return context.sha
   }
-  return GITHUB_SHA
+  if (eventName === 'pull_request') {
+    const pr = payload.pull_request
+    if (!pr) {
+      core.error(`Unexpected payload: ${JSON.stringify(payload)}`)
+      throw new Error(`Got event type ${eventName} but no PR found in payload`)
+    }
+    const sha = pr.head.sha
+    if (!sha) {
+      throw new Error(`payload.pull_request.head.sha is ${sha}`)
+    }
+    return sha as string
+  }
+
+  core.warning(`Unhandled getSha() case. Returning ${context.sha}.`)
+  return context.sha
 }

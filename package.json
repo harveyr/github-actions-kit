@@ -1,15 +1,17 @@
 {
   "name": "@harveyr/github-actions-kit",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "Github Actions toolkit",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
+  "repository": "git://github.com/harveyr/github-actions-kit.git",
   "files": [
     "lib"
   ],
   "prepublish": "npm run build",
   "scripts": {
     "build": "rm -rf lib && tsc",
+    "print-sha": "node lib/scripts/print-sha.js",
     "test": "jest"
   },
   "author": "",
