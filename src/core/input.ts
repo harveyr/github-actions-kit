@@ -21,7 +21,7 @@ export function getInputSafe(key: string, opt: GetInputOpt = {}): string {
     // Allow for dependency injection to make testing easy:
     const getFunc: GetInputFn = opt.getInput ? opt.getInput : core.getInput
     const getOpt: core.InputOptions = { required: opt.required }
-    return getFunc.apply(null, [key, getOpt]).trim()
+    return (getFunc.apply(null, [key, getOpt]) || '').trim()
   }
 
   const result = getInput(key)
