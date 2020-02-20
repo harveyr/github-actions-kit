@@ -32,7 +32,7 @@ test('getInputSafe: fail if alt key found', () => {
   expect(() => {
     getInputSafe('disco_heaven', { getInput, required: false })
   }).toThrow(
-    'No data for input "disco_heaven" but got data for input "disco-heaven". Failing out of caution.',
+    'No data for input "disco_heaven" but got data for input "disco-heaven": "not nothing". Failing out of caution.',
   )
 
   // Same result for the other key pattern
@@ -40,7 +40,7 @@ test('getInputSafe: fail if alt key found', () => {
   expect(() => {
     getInputSafe('disco-heaven', { getInput, required: false })
   }).toThrow(
-    'No data for input "disco-heaven" but got data for input "disco_heaven". Failing out of caution.',
+    'No data for input "disco-heaven" but got data for input "disco_heaven": "not nothing". Failing out of caution.',
   )
 })
 
