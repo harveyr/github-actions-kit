@@ -10,7 +10,7 @@
   "prepublish": "npm run build",
   "scripts": {
     "build": "rm -rf lib && tsc",
-    "print-sha": "node lib/print-sha.js",
+    "print-sha": "node lib/scripts/print-sha.js",
     "test": "jest"
   },
   "author": "",
