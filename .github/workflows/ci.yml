@@ -30,3 +30,11 @@ jobs:
       - run: npx eslint src/**/**.ts
 
       - run: npx prettier --list-different src/**/**.ts
+
+      - name: Publish
+        # FIXME:
+        if: github.ref == 'refs/heads/fix-sha'
+        run: echo "//npm.pkg.github.com/:_authToken=$TOKEN" > ~/.npmrc
+          npm publish --access public --dry-run
+        env:
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
