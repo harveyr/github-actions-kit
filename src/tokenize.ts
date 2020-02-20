@@ -1,7 +1,11 @@
 /**
  * Split a whitespace-delimited string into tokens.
  */
-export function tokenize(s: string): string[] {
+export function tokenize(s?: string): string[] {
+  if (!s) {
+    return []
+  }
+
   return s
     .split(' ')
     .map(s => {

@@ -8,6 +8,7 @@ interface CheckRunResponse {
   status: number
   // TODO: Use proper type once Octokit is fixed.
   // See https://github.com/actions/toolkit/issues/335.
+  // Hopefully they'll cut a release any day now.
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   data: any
 }
