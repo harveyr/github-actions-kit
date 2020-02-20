@@ -3,11 +3,13 @@ import * as github from '@actions/github'
 import * as checks from './checks'
 import { getOwnerAndRepo, getSha } from './constants'
 import { CheckRunAbridged } from './types'
-import { ChecksCreateResponse } from '@octokit/rest'
 
 interface CheckRunResponse {
   status: number
-  data: ChecksCreateResponse
+  // TODO: Use proper type once Octokit is fixed.
+  // See https://github.com/actions/toolkit/issues/335.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  data: any
 }
 
 export async function postCheckRun(
