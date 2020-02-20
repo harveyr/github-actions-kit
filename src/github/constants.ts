@@ -29,15 +29,24 @@ export function getOwnerAndRepo(s?: string): ParsedRepo {
 
 export function getSha(): string {
   const context = github.context
-  const { eventName } = context
+  const { eventName, payload } = context
 
   if (eventName === 'push') {
     return context.sha
   }
   if (eventName === 'pull_request') {
-    console.log(JSON.stringify(context))
-    throw new Error('FIXME:')
+    const pr = payload.pull_request
+    if (!pr) {
+      core.error(`Unexpected payload: ${JSON.stringify(payload)}`)
+      throw new Error(`Got event type ${eventName} but no PR found in payload`)
+    }
+    const sha = pr.head.sha
+    if (!sha) {
+      throw new Error(`payload.pull_request.head.sha is ${sha}`)
+    }
+    return sha as string
   }
+
   core.warning(`Unhandled getSha() case. Returning ${context.sha}.`)
   return context.sha
 }
