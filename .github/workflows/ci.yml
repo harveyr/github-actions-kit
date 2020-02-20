@@ -23,9 +23,7 @@ jobs:
 
       # Some sanity checks:
       - name: Scripts
-        run: |
-          ls -l
-          npm run print-sha
+        run: npm run print-sha
 
       - run: npm test
 
