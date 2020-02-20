@@ -51,6 +51,10 @@ export async function postCheckRun(
   const postAnnotationCount = annotations ? annotations.length : 0
   const respAnnotationCount = data.output.annotations_count || 0
 
+  core.info(
+    `[${status}] Created check run ${data.id} with ${respAnnotationCount} annotations for ${owner}/${repo} at ${sha}`,
+  )
+
   if (postAnnotationCount !== respAnnotationCount) {
     core.warning(
       `Posted ${postAnnotationCount} annotations but ${respAnnotationCount} were in the response. Full response: ${JSON.stringify(
@@ -58,10 +62,6 @@ export async function postCheckRun(
       )}`,
     )
   }
-
-  core.info(
-    `[${status}] Created check run ${data.id} with ${respAnnotationCount} annotations for ${owner}/${repo} at ${sha}`,
-  )
 
   return { status, data }
 }

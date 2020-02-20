@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- A more verbose log line after a successful check-run completion. I'm having an
+- More verbose logging after successfully creating a check run. I'm having an
   issue in another repo where the request is successful but the annotations are
   not showing up.
 
