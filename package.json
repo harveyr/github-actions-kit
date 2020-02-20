@@ -4,6 +4,7 @@
   "description": "Github Actions toolkit",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
+  "repository": "git://github.com/harveyr/github-actions-kit.git",
   "files": [
     "lib"
   ],

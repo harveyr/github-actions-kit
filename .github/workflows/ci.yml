@@ -3,7 +3,7 @@ name: CI
 on: [push, pull_request]
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Dump GitHub context
@@ -35,7 +35,10 @@ jobs:
         # FIXME:
         if: github.ref == 'refs/heads/fix-sha'
         run: |
+          set -e
           echo "//npm.pkg.github.com/:_authToken=$TOKEN" > ~/.npmrc
           npm publish --access public --dry-run
+          npm publish
+          rm ~/.npmrc
         env:
           TOKEN: ${{ secrets.GITHUB_TOKEN }}
