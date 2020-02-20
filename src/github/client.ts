@@ -24,9 +24,6 @@ export async function postCheckRun(
   }
   const client = new github.GitHub(githubToken)
 
-  const annotationsCount = annotations ? annotations.length : 0
-
-  core.info(`Posting ${annotationsCount}`)
   const sha = getSha()
 
   const resp = await client.checks.create({
@@ -51,8 +48,20 @@ export async function postCheckRun(
     throw new Error(`Failed to post check run [${status}]`)
   }
 
+  const postAnnotationCount = annotations ? annotations.length : 0
+  const respAnnotationCount = data.output.annotations_count || 0
+
+  if (postAnnotationCount !== respAnnotationCount) {
+    core.warning(
+      `Posted ${postAnnotationCount} annotations but ${respAnnotationCount} were in the response. Full response: ${JSON.stringify(
+        data,
+      )}`,
+    )
+  }
+
   core.info(
-    `[${status}] Created check run ${data.id} for ${owner}/${repo} at ${sha}`,
+    `[${status}] Created check run ${data.id} with ${respAnnotationCount} annotations for ${owner}/${repo} at ${sha}`,
   )
+
   return { status, data }
 }
