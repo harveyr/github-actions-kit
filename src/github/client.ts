@@ -24,11 +24,16 @@ export async function postCheckRun(
   }
   const client = new github.GitHub(githubToken)
 
+  const annotationsCount = annotations ? annotations.length : 0
+
+  core.info(`Posting ${annotationsCount}`)
+  const sha = getSha()
+
   const resp = await client.checks.create({
     name,
     conclusion,
     // eslint-disable-next-line @typescript-eslint/camelcase
-    head_sha: getSha(),
+    head_sha: sha,
     owner,
     repo,
     output: {
@@ -46,6 +51,8 @@ export async function postCheckRun(
     throw new Error(`Failed to post check run [${status}]`)
   }
 
-  core.info(`Check run response: ${status}`)
+  core.info(
+    `[${status}] Created check run ${data.id} for ${owner}/${repo} at ${sha}`,
+  )
   return { status, data }
 }
