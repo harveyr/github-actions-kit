@@ -1,7 +1,7 @@
 import * as core from '@actions/core'
 import * as github from '@actions/github'
 
-const { GITHUB_REPOSITORY, GITHUB_SHA, GITHUB_WORKSPACE } = process.env
+const { GITHUB_REPOSITORY, GITHUB_WORKSPACE } = process.env
 
 export function getWorkspace(): string {
   if (!GITHUB_WORKSPACE) {
@@ -29,5 +29,15 @@ export function getOwnerAndRepo(s?: string): ParsedRepo {
 
 export function getSha(): string {
   const context = github.context
+  const { eventName } = context
+
+  if (eventName === 'push') {
+    return context.sha
+  }
+  if (eventName === 'pull_request') {
+    console.log(JSON.stringify(event))
+    throw new Error('FIXME:')
+  }
+  core.warning(`Unhandled getSha() case. Returning ${context.sha}.`)
   return context.sha
 }
