@@ -22,8 +22,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `getSha()` was returning a not-particularly-useful SHA when the GitHub Action
   was triggered by a `pull_request` event. In that case, the `ref` is something
   like `"refs/pull/10976/merge"` instead of the typical branch name, and the SHA
-  is part of that merge ref rather than the PR's head SHA. `getSha()` now
-  handles the pull_request event properly.
+  is part of that merge ref rather than the PR's head SHA. This meant that check
+  runs were posting to the wrong SHA and weren't showing up in PR checks.
+  `getSha()` now handles the pull_request event properly by grabbing `head.sha`.
 
 ## [0.0.9] - Feb 20, 2020
 
