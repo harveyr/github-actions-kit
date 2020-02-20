@@ -1,4 +1,5 @@
 import * as core from '@actions/core'
+import * as github from '@actions/github'
 
 const { GITHUB_REPOSITORY, GITHUB_SHA, GITHUB_WORKSPACE } = process.env
 
@@ -27,8 +28,6 @@ export function getOwnerAndRepo(s?: string): ParsedRepo {
 }
 
 export function getSha(): string {
-  if (!GITHUB_SHA) {
-    throw new Error('GITHUB_SHA is empty')
-  }
-  return GITHUB_SHA
+  const context = github.context
+  return context.sha
 }

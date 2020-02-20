@@ -21,6 +21,9 @@ jobs:
 
       - run: npm run build
 
+      - name: Scripts
+        run: npm run print-sha
+
       - run: npm test
 
       - run: npx eslint src/**/**.ts
