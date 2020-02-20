@@ -21,8 +21,11 @@ jobs:
 
       - run: npm run build
 
+      # Some sanity checks:
       - name: Scripts
-        run: npm run print-sha
+        run: |
+          ls -l
+          npm run print-sha
 
       - run: npm test
 
