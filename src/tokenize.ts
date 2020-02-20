@@ -6,12 +6,17 @@ export function tokenize(s?: string): string[] {
     return []
   }
 
-  return s
-    .split(' ')
-    .map(s => {
-      return s.trim()
-    })
-    .filter(s => {
-      return Boolean(s)
-    })
+  const tokens: string[] = []
+
+  for (let line of s.split('\n')) {
+    line = line.trim()
+    for (let lineToken of line.split(' ')) {
+      lineToken = lineToken.trim()
+      if (lineToken) {
+        tokens.push(lineToken)
+      }
+    }
+  }
+
+  return tokens
 }
