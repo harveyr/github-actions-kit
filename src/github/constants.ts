@@ -35,7 +35,7 @@ export function getSha(): string {
     return context.sha
   }
   if (eventName === 'pull_request') {
-    console.log(JSON.stringify(event))
+    console.log(JSON.stringify(context))
     throw new Error('FIXME:')
   }
   core.warning(`Unhandled getSha() case. Returning ${context.sha}.`)
