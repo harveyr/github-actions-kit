@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.0.8] - Feb 20, 2020
 
+### Added
+
+- Add `tokenize` function to split strings into tokens.
+
 ### Changed
 
 - Check the response code when posting GitHub check runs, and return the response data.

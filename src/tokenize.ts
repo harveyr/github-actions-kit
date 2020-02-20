@@ -1,3 +1,6 @@
+/**
+ * Split a whitespace-delimited string into tokens.
+ */
 export function tokenize(s: string): string[] {
   return s
     .split(' ')
