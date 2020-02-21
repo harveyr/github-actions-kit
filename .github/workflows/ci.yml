@@ -1,11 +1,16 @@
 name: CI
 
-on: [push]
+on: [push, pull_request]
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
     steps:
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
+
       - uses: actions/checkout@v2
 
       - uses: actions/setup-node@v1
@@ -15,6 +20,10 @@ jobs:
       - run: npm ci
 
       - run: npm run build
+
+      # Some sanity checks:
+      - name: Scripts
+        run: npm run print-sha
 
       - run: npm test
 
