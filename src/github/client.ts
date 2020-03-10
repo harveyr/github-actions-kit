@@ -6,11 +6,9 @@ import { CheckRunAbridged } from './types'
 
 interface CheckRunResponse {
   status: number
-  // TODO: Use proper type once Octokit is fixed.
-  // See https://github.com/actions/toolkit/issues/335.
-  // Hopefully they'll cut a release any day now.
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  data: any
+  data: {
+    id: number
+  }
 }
 
 export async function postCheckRun(
@@ -63,5 +61,10 @@ export async function postCheckRun(
     )
   }
 
-  return { status, data }
+  return {
+    status,
+    data: {
+      id: data.id,
+    },
+  }
 }

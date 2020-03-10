@@ -1,15 +1,15 @@
 import * as exec from '@actions/exec'
+import { ExecOptions } from '@actions/exec/lib/interfaces'
 
 interface CommandOutput {
   stdout: string
   stderr: string
 }
 
-export interface ExecOptions {
-  cwd?: string
-  failOnStdErr?: boolean
-}
-
+/**
+ * Run a shell command and capture the output. Removes some of the boilerplate
+ * from using `exec.exec`.
+ */
 export async function execAndCapture(
   command: string,
   args: string[],
@@ -18,12 +18,8 @@ export async function execAndCapture(
   let stdout = ''
   let stderr = ''
 
-  const { cwd, failOnStdErr } = opt
-
-  await exec.exec(command, args, {
-    cwd,
-    failOnStdErr,
-    ignoreReturnCode: failOnStdErr === false,
+  opt = {
+    ...opt,
     listeners: {
       stdout: (data: Buffer): void => {
         stdout += data.toString()
@@ -32,7 +28,9 @@ export async function execAndCapture(
         stderr += data.toString()
       },
     },
-  })
+  }
+
+  await exec.exec(command, args, opt)
   stdout = stdout.trim()
   stderr = stderr.trim()
 
