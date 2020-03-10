@@ -14,6 +14,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Bumped a number of dep versions.
+- Reuses `exec.ExecOptions` type for `execAndCapture` options so you can pass
+  through all the options.
 
 ## [0.0.11] - Feb 20, 2020
 
